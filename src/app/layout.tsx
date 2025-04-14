@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 async function isAuthenticated() {
   // Example: Check for a session or token
   // In a real app, this would involve verifying a token or session
-  return false; // Simulate logged-out state
+  return true; // Simulate logged-out state
 }
 
 export const metadata: Metadata = {
