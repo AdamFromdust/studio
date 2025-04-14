@@ -1,11 +1,14 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { getServerSession } from "next-auth/next"
+import { authOptions } from "@/lib/auth";
+
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
@@ -14,6 +17,17 @@ const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [isRegistering, setIsRegistering] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    const checkSession = async () => {
+      const session = await getServerSession(authOptions);
+      if (session) {
+        router.push('/');
+      }
+    };
+
+    checkSession();
+  }, [router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

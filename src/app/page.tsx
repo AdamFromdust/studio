@@ -55,7 +55,7 @@ export default function HomePage() {
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton href="/fake">
+                <SidebarMenuButton href="/login">
                   <HelpCircle />
                   <span>Fake</span>
                 </SidebarMenuButton>

@@ -7,6 +7,8 @@ import { authOptions } from "@/lib/auth";
 import Link from 'next/link';
 import { Button } from "@/components/ui/button"
 import {signOut} from "next-auth/react";
+import {usePathname, useRouter} from "next/navigation";
+import {useEffect} from "react";
 import {SidebarProvider, Sidebar, SidebarContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton} from '@/components/ui/sidebar';
 import {Home, BookOpen, Leaf, Lightbulb, HelpCircle} from 'lucide-react';
 
@@ -31,6 +33,15 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await getServerSession(authOptions);
+  const router = useRouter();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (session && pathname === '/login') {
+      router.push('/');
+    }
+  }, [session, pathname, router]);
+
 
   return (
     <SidebarProvider>
@@ -82,6 +93,14 @@ export default async function RootLayout({
               </SidebarMenuButton>
             </SidebarMenuItem>
 
+            {session ? null : (
+                <SidebarMenuItem>
+                  <SidebarMenuButton href="/login">
+                    Login
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+            )}
+
           </SidebarMenu>
           {session ? (
               <SidebarMenuItem>
@@ -90,13 +109,7 @@ export default async function RootLayout({
                   </Button>
                   <p className="p-4 text-sm">Logged in as {session.user?.name}</p>
               </SidebarMenuItem>
-          ) : (
-              <SidebarMenuItem>
-                  <SidebarMenuButton href="/login">
-                      Login
-                  </SidebarMenuButton>
-              </SidebarMenuItem>
-          )}
+          ) : null}
         </SidebarContent>
       </Sidebar>
 
