@@ -2,6 +2,11 @@
 import type {Metadata} from 'next';
 import {Geist, Geist_Mono} from 'next/font/google';
 import './globals.css';
+import { getServerSession } from "next-auth/next"
+import { authOptions } from "@/lib/auth";
+import Link from 'next/link';
+import { Button } from "@/components/ui/button"
+import {signOut} from "next-auth/react";
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -23,12 +28,30 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getServerSession(authOptions);
+
   return (
     <html lang="en" suppressHydrationWarning={true}>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
+        <footer className="fixed bottom-0 left-0 w-full h-12 flex items-center justify-between bg-secondary text-secondary-foreground p-4">
+          {session ? (
+            <>
+              <span>Logged in as {session.user?.name}</span>
+              <Button variant="outline" size="sm" onClick={() => signOut()}>
+                Logout
+              </Button>
+            </>
+          ) : (
+            <Link href="/login" className="text-sm underline">
+              Login
+            </Link>
+          )}
+        </footer>
       </body>
     </html>
   );
 }
 
+
+    
