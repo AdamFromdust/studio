@@ -8,7 +8,7 @@ import AIHelp from '@/components/AIHelp';
 import {SidebarProvider, Sidebar, SidebarContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton} from '@/components/ui/sidebar';
 import {Toaster} from '@/components/ui/toaster';
 import {Home, BookOpen, Leaf, Lightbulb, HelpCircle} from 'lucide-react';
-import Link from 'next/link';
+
 
 export default function HomePage() {
   
@@ -79,9 +79,7 @@ export default function HomePage() {
         <Toaster />
       </div>
       
-        <div className="absolute bottom-4 left-4 text-sm text-gray-500">
-          <Link href="/login">Log in</Link>
-        </div>
+        
       
     </SidebarProvider>
   );
