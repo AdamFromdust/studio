@@ -81,21 +81,22 @@ export default async function RootLayout({
                 <span>Fake</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
-              {session ? (
-                  <SidebarMenuItem>
-                      <Button variant="outline" size="sm" onClick={() => signOut()}>
-                          Logout
-                      </Button>
-                      <p className="p-4 text-sm">Logged in as {session.user?.name}</p>
-                  </SidebarMenuItem>
-              ) : (
-                  <SidebarMenuItem>
-                      <SidebarMenuButton href="/login">
-                          Login
-                      </SidebarMenuButton>
-                  </SidebarMenuItem>
-              )}
+
           </SidebarMenu>
+          {session ? (
+              <SidebarMenuItem>
+                  <Button variant="outline" size="sm" onClick={() => signOut()}>
+                      Logout
+                  </Button>
+                  <p className="p-4 text-sm">Logged in as {session.user?.name}</p>
+              </SidebarMenuItem>
+          ) : (
+              <SidebarMenuItem>
+                  <SidebarMenuButton href="/login">
+                      Login
+                  </SidebarMenuButton>
+              </SidebarMenuItem>
+          )}
         </SidebarContent>
       </Sidebar>
 
@@ -106,6 +107,3 @@ export default async function RootLayout({
     </SidebarProvider>
   );
 }
-    
-
-    
