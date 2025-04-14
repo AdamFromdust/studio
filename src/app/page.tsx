@@ -1,3 +1,5 @@
+"use client";
+
 import KnowledgeBase from '@/components/KnowledgeBase';
 import PlantProfile from '@/components/PlantProfile';
 import CareLogging from '@/components/CareLogging';
@@ -6,8 +8,11 @@ import AIHelp from '@/components/AIHelp';
 import {SidebarProvider, Sidebar, SidebarContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton} from '@/components/ui/sidebar';
 import {Toaster} from '@/components/ui/toaster';
 import {Home, BookOpen, Leaf, Lightbulb, HelpCircle} from 'lucide-react';
+import Link from 'next/link';
 
 export default function HomePage() {
+  
+
   return (
     <SidebarProvider>
       <div className="flex h-screen">
@@ -73,6 +78,11 @@ export default function HomePage() {
         </main>
         <Toaster />
       </div>
+      
+        <div className="absolute bottom-4 left-4 text-sm text-gray-500">
+          <Link href="/login">Log in</Link>
+        </div>
+      
     </SidebarProvider>
   );
 }
