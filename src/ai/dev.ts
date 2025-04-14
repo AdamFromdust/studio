@@ -1,1 +1,6 @@
-// Flows will be imported for their side effects in this file.
+import '@/ai/flows/plant-care-recommendation.ts';
+import '@/ai/flows/plant-problem-analysis.ts';
+import '@/ai/flows/product-suitability-analysis.ts';
+import '@/ai/flows/orchid-problem-analysis.ts';
+import '@/ai/flows/orchid-care-recommendation.ts';
+import '@/ai/flows/product-quality-check.ts';
