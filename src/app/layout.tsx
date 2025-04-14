@@ -76,18 +76,20 @@ export default async function RootLayout({
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
-          {session ? (
-              <>
-                <span>Logged in as {session.user?.name}</span>
-                <Button variant="outline" size="sm" onClick={() => signOut()}>
-                  Logout
-                </Button>
-              </>
-            ) : (
-              <Link href="/login" className="text-sm underline">
-                Login
-              </Link>
-            )}
+                {session ? (
+                    <div className="p-4">
+                        <p className="text-sm">Logged in as {session.user?.name}</p>
+                        <Button variant="outline" size="sm" onClick={() => signOut()}>
+                            Logout
+                        </Button>
+                    </div>
+                ) : (
+                    <div className="p-4">
+                        <Link href="/login" className="text-sm underline">
+                            Login
+                        </Link>
+                    </div>
+                )}
         </SidebarContent>
       </Sidebar>
 
@@ -98,3 +100,6 @@ export default async function RootLayout({
     </SidebarProvider>
   );
 }
+    
+
+    
