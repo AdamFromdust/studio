@@ -7,6 +7,8 @@ import { authOptions } from "@/lib/auth";
 import Link from 'next/link';
 import { Button } from "@/components/ui/button"
 import {signOut} from "next-auth/react";
+import {SidebarProvider, Sidebar, SidebarContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton} from '@/components/ui/sidebar';
+import {Home, BookOpen, Leaf, Lightbulb, HelpCircle} from 'lucide-react';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -31,27 +33,68 @@ export default async function RootLayout({
   const session = await getServerSession(authOptions);
 
   return (
-    <html lang="en" suppressHydrationWarning={true}>
+    <SidebarProvider>
+      <html lang="en" suppressHydrationWarning={true}>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {children}
-        <footer className="fixed bottom-0 left-0 w-full h-12 flex items-center justify-between bg-secondary text-secondary-foreground p-4">
+      <Sidebar collapsible="icon">
+        <SidebarContent>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton href="#" isActive>
+                <Home />
+                <span>Home</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton href="#knowledgebase">
+                <BookOpen />
+                <span>Knowledge Base</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton href="#plantprofile">
+                <Leaf />
+                <span>Plant Profile</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton href="#carelogging">
+                <Lightbulb />
+                <span>Care Logging</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton href="#airecommendations">
+                <HelpCircle />
+                <span>AI Recommendations</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton href="#aihelp">
+                <HelpCircle />
+                <span>AI Help</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
           {session ? (
-            <>
-              <span>Logged in as {session.user?.name}</span>
-              <Button variant="outline" size="sm" onClick={() => signOut()}>
-                Logout
-              </Button>
-            </>
-          ) : (
-            <Link href="/login" className="text-sm underline">
-              Login
-            </Link>
-          )}
-        </footer>
+              <>
+                <span>Logged in as {session.user?.name}</span>
+                <Button variant="outline" size="sm" onClick={() => signOut()}>
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <Link href="/login" className="text-sm underline">
+                Login
+              </Link>
+            )}
+        </SidebarContent>
+      </Sidebar>
+
+        {children}
+        
       </body>
-    </html>
+      </html>
+    </SidebarProvider>
   );
 }
-
-
-    
