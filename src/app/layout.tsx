@@ -40,37 +40,37 @@ export default async function RootLayout({
         <SidebarContent>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton href="#" isActive>
+              <SidebarMenuButton href="/" isActive>
                 <Home />
                 <span>Home</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton href="#knowledgebase">
+              <SidebarMenuButton href="/knowledgebase">
                 <BookOpen />
                 <span>Knowledge Base</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton href="#plantprofile">
+              <SidebarMenuButton href="/plantprofile">
                 <Leaf />
                 <span>Plant Profile</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton href="#carelogging">
+              <SidebarMenuButton href="/carelogging">
                 <Lightbulb />
                 <span>Care Logging</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton href="#airecommendations">
+              <SidebarMenuButton href="/airecommendations">
                 <HelpCircle />
                 <span>AI Recommendations</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton href="#aihelp">
+              <SidebarMenuButton href="/aihelp">
                 <HelpCircle />
                 <span>AI Help</span>
               </SidebarMenuButton>
