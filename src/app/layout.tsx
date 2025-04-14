@@ -75,6 +75,12 @@ export default async function RootLayout({
                 <span>AI Help</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton href="/fake">
+                <HelpCircle />
+                <span>Fake</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
               {session ? (
                   <SidebarMenuItem>
                       <p className="p-4 text-sm">Logged in as {session.user?.name}</p>

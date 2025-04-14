@@ -54,6 +54,12 @@ export default function HomePage() {
                   <span>AI Help</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton href="/fake">
+                  <HelpCircle />
+                  <span>Fake</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarContent>
         </Sidebar>
@@ -72,3 +78,4 @@ export default function HomePage() {
     </SidebarProvider>
   );
 }
+
