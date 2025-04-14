@@ -75,21 +75,21 @@ export default async function RootLayout({
                 <span>AI Help</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
+              {session ? (
+                  <SidebarMenuItem>
+                      <p className="p-4 text-sm">Logged in as {session.user?.name}</p>
+                      <Button variant="outline" size="sm" onClick={() => signOut()}>
+                          Logout
+                      </Button>
+                  </SidebarMenuItem>
+              ) : (
+                  <SidebarMenuItem>
+                      <SidebarMenuButton href="/login">
+                          Login
+                      </SidebarMenuButton>
+                  </SidebarMenuItem>
+              )}
           </SidebarMenu>
-                {session ? (
-                    <div className="p-4">
-                        <p className="text-sm">Logged in as {session.user?.name}</p>
-                        <Button variant="outline" size="sm" onClick={() => signOut()}>
-                            Logout
-                        </Button>
-                    </div>
-                ) : (
-                    <div className="p-4">
-                        <Link href="/login" className="text-sm underline">
-                            Login
-                        </Link>
-                    </div>
-                )}
         </SidebarContent>
       </Sidebar>
 
