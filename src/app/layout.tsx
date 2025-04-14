@@ -1,5 +1,5 @@
 
-import type {Metadata} from 'next';
+import type {Metadata} from 'next/server';
 import {Geist, Geist_Mono} from 'next/font/google';
 import './globals.css';
 import { getServerSession } from "next-auth/next"
@@ -76,7 +76,7 @@ export default async function RootLayout({
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton href="/fake">
+              <SidebarMenuButton href="/login">
                 <HelpCircle />
                 <span>Fake</span>
               </SidebarMenuButton>
