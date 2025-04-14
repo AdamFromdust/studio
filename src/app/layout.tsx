@@ -83,10 +83,10 @@ export default async function RootLayout({
             </SidebarMenuItem>
               {session ? (
                   <SidebarMenuItem>
-                      <p className="p-4 text-sm">Logged in as {session.user?.name}</p>
                       <Button variant="outline" size="sm" onClick={() => signOut()}>
                           Logout
                       </Button>
+                      <p className="p-4 text-sm">Logged in as {session.user?.name}</p>
                   </SidebarMenuItem>
               ) : (
                   <SidebarMenuItem>
