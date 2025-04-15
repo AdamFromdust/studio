@@ -1,5 +1,11 @@
 {
   "projects": {
     "default": "nahavandaapp"
+  },
+  "targets": {},
+  "etags": {
+    "nahavandaapp": {
+      "extensionInstances": {}
+    }
   }
 }

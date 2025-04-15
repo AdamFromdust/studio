@@ -43,3 +43,6 @@ yarn-error.log*
 next-env.d.ts
 
 .genkit/*
+
+# Firebase CLI cache and local config
+.firebase/
