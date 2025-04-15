@@ -9,10 +9,31 @@ import {SidebarProvider, Sidebar, SidebarContent, SidebarMenu, SidebarMenuItem, 
 import {Toaster} from '@/components/ui/toaster';
 import {Home, BookOpen, Leaf, Lightbulb, HelpCircle} from 'lucide-react';
 import Link from 'next/link';
+import { auth } from './firebase-config';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { Button } from '@/components/ui/button';
+import {signOut} from "firebase/auth";
 
 
 export default function HomePage() {
-  const isLoggedIn = false; // Mocked logged-out state
+  const [user, loading, error] = useAuthState(auth);
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      // Optionally, redirect or update state after sign-out
+    } catch (err) {
+      console.error("Sign out error:", err);
+    }
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
 
 
   return (
@@ -69,24 +90,26 @@ export default function HomePage() {
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
-            <p className="p-4 text-sm">Logged out</p>
+            <p className="p-4 text-sm">
+              {user ? `Logged in as ${user.email}` : 'Logged out'}
+            </p>
           </SidebarContent>
         </Sidebar>
 
         <main className="flex-1 p-4 overflow-y-auto">
           <div className="mb-4">
             <h2 className="text-xl font-semibold">Debug Section</h2>
-            <p>Logged In: {isLoggedIn ? 'Yes' : 'No'}</p>
+            <p>Logged In: {user ? 'Yes' : 'No'}</p>
 
-            {isLoggedIn ? (
-              <button className="bg-red-500 text-white px-4 py-2 rounded">
+            {user ? (
+              <Button onClick={handleSignOut} className="bg-red-500 text-white px-4 py-2 rounded">
                 Logout
-              </button>
+              </Button>
             ) : (
               <Link href="/login">
-                <button className="bg-blue-500 text-white px-4 py-2 rounded">
+                <Button className="bg-blue-500 text-white px-4 py-2 rounded">
                   Login
-                </button>
+                </Button>
               </Link>
             )}
           </div>
