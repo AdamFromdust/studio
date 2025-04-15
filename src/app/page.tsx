@@ -10,11 +10,12 @@ import {Toaster} from '@/components/ui/toaster';
 import {Home, BookOpen, Leaf, Lightbulb, HelpCircle} from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-
+import {auth} from "@/app/firebase-config";
+import {useAuthState} from "react-firebase-hooks/auth";
 
 
 export default function HomePage() {
-
+  const [user, loading, error] = useAuthState(auth);
 
   return (
     <SidebarProvider>
@@ -79,7 +80,7 @@ export default function HomePage() {
         <main className="flex-1 p-4 overflow-y-auto">
           <div className="mb-4">
             <h2 className="text-xl font-semibold">Debug Section</h2>
-            <p>Logged In: No</p>
+            <p>Logged In: {user ? 'Yes' : 'No'}</p>
 
              
               <Link href="/login">
@@ -100,4 +101,3 @@ export default function HomePage() {
     </SidebarProvider>
   );
 }
-

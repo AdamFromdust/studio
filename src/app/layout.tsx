@@ -6,10 +6,13 @@ import './globals.css';
 import Link from 'next/link';
 import {Button} from "@/components/ui/button"
 import {usePathname, useRouter} from "next/navigation";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {SidebarProvider, Sidebar, SidebarContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton} from '@/components/ui/sidebar';
 import {Home, BookOpen, Leaf, Lightbulb, HelpCircle} from 'lucide-react';
 import {metadata} from './metadata';
+import { auth } from './firebase-config';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import {useToast} from "@/hooks/use-toast";
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -28,14 +31,41 @@ export default function RootLayout({
 }>) {
   const router = useRouter();
   const pathname = usePathname();
-  const session = null;
+  const [session, setSession] = useState<any>(null);
+    const {toast} = useToast();
 
   useEffect(() => {
-    if (session && pathname === '/login') {
-      router.push('/');
-    }
-  }, [session, pathname, router]);
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setSession(user);
+      } else {
+        setSession(null);
+        if (pathname !== '/login') {
+          router.push('/login');
+        }
+      }
+    });
 
+    return () => unsubscribe();
+  }, [router, pathname]);
+
+
+  const handleSignOut = async () => {
+      try {
+          await signOut(auth);
+          setSession(null);
+          router.push('/login');
+          toast({
+              title: "Logged out successfully",
+          })
+      } catch (error: any) {
+          toast({
+              variant: "destructive",
+              title: "Error logging out",
+              description: error.message,
+          })
+      }
+  };
 
   return (
     <SidebarProvider>
@@ -86,19 +116,27 @@ export default function RootLayout({
                 <span>Fake</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
-            <SidebarMenuItem>
-                <SidebarMenuButton href="/login">
-                  Login
-                </SidebarMenuButton>
-            </SidebarMenuItem>
+            {session ? (
+                    <SidebarMenuItem>
+                        <SidebarMenuButton onClick={handleSignOut}>
+                            Logout
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                ) : (
+                    <SidebarMenuItem>
+                        <SidebarMenuButton href="/login">
+                            Login
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                )}
 
           </SidebarMenu>
-          <p className="p-4 text-sm">Logged out</p>
+          <p className="p-4 text-sm">{session ? `Logged in as ${session?.email}` : 'Logged out'}</p>
         </SidebarContent>
       </Sidebar>
 
         {children}
-        
+
       </body>
       </html>
     </SidebarProvider>
