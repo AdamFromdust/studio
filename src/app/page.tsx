@@ -9,31 +9,11 @@ import {SidebarProvider, Sidebar, SidebarContent, SidebarMenu, SidebarMenuItem, 
 import {Toaster} from '@/components/ui/toaster';
 import {Home, BookOpen, Leaf, Lightbulb, HelpCircle} from 'lucide-react';
 import Link from 'next/link';
-import { auth } from './firebase-config';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { Button } from '@/components/ui/button';
-import {signOut} from "firebase/auth";
+
 
 
 export default function HomePage() {
-  const [user, loading, error] = useAuthState(auth);
-
-  const handleSignOut = async () => {
-    try {
-      await signOut(auth);
-      // Optionally, redirect or update state after sign-out
-    } catch (err) {
-      console.error("Sign out error:", err);
-    }
-  };
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
 
 
   return (
@@ -91,7 +71,7 @@ export default function HomePage() {
               </SidebarMenuItem>
             </SidebarMenu>
             <p className="p-4 text-sm">
-              {user ? `Logged in as ${user.email}` : 'Logged out'}
+              Logged out
             </p>
           </SidebarContent>
         </Sidebar>
@@ -99,19 +79,15 @@ export default function HomePage() {
         <main className="flex-1 p-4 overflow-y-auto">
           <div className="mb-4">
             <h2 className="text-xl font-semibold">Debug Section</h2>
-            <p>Logged In: {user ? 'Yes' : 'No'}</p>
+            <p>Logged In: No</p>
 
-            {user ? (
-              <Button onClick={handleSignOut} className="bg-red-500 text-white px-4 py-2 rounded">
-                Logout
-              </Button>
-            ) : (
+             
               <Link href="/login">
                 <Button className="bg-blue-500 text-white px-4 py-2 rounded">
                   Login
                 </Button>
               </Link>
-            )}
+            
           </div>
           <KnowledgeBase />
           <PlantProfile />
@@ -124,3 +100,4 @@ export default function HomePage() {
     </SidebarProvider>
   );
 }
+
