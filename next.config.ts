@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  transpilePackages: ['react-firebase-hooks'],
+  transpilePackages: ['react-firebase-hooks/auth', 'react-firebase-hooks'],
 };
 
 export default nextConfig;
