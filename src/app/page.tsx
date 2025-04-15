@@ -4,13 +4,16 @@ import KnowledgeBase from '@/components/KnowledgeBase';
 import PlantProfile from '@/components/PlantProfile';
 import CareLogging from '@/components/CareLogging';
 import AIRecommendations from '@/components/AIRecommendations';
+import AIHelp from '@/components/AIHelp';
 import {SidebarProvider, Sidebar, SidebarContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton} from '@/components/ui/sidebar';
 import {Toaster} from '@/components/ui/toaster';
 import {Home, BookOpen, Leaf, Lightbulb, HelpCircle} from 'lucide-react';
+import Link from 'next/link';
 
 
 export default function HomePage() {
-  
+  const isLoggedIn = false; // Mocked logged-out state
+
 
   return (
     <SidebarProvider>
@@ -54,27 +57,47 @@ export default function HomePage() {
                   <span>AI Help</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton href="/login">
+                    <HelpCircle />
+                    <span>Fake</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton href="/login">
-                  <HelpCircle />
-                  <span>Fake</span>
+                  Login
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
+            <p className="p-4 text-sm">Logged out</p>
           </SidebarContent>
         </Sidebar>
 
         <main className="flex-1 p-4 overflow-y-auto">
+          <div className="mb-4">
+            <h2 className="text-xl font-semibold">Debug Section</h2>
+            <p>Logged In: {isLoggedIn ? 'Yes' : 'No'}</p>
+
+            {isLoggedIn ? (
+              <button className="bg-red-500 text-white px-4 py-2 rounded">
+                Logout
+              </button>
+            ) : (
+              <Link href="/login">
+                <button className="bg-blue-500 text-white px-4 py-2 rounded">
+                  Login
+                </button>
+              </Link>
+            )}
+          </div>
           <KnowledgeBase />
           <PlantProfile />
           <CareLogging />
           <AIRecommendations />
+            <AIHelp/>
         </main>
         <Toaster />
       </div>
-      
-        
-      
     </SidebarProvider>
   );
 }
